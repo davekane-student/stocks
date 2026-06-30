@@ -212,7 +212,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="completed-phase-4-data-storage-cli">[Completed] Phase 4: Data Storage &amp; CLI</h3>
 <ul>
 <li>Created <a href="file:///workspaces/stocks/downloads/AAPL_historical.csv">downloads/AAPL_historical.csv</a> containing 2510 rows (10 years) of clean trading records.</li>
-<li>Expanded the dataset by scraping 10 additional prominent NASDAQ tickers: <strong>MSFT</strong>, <strong>GOOGL</strong>, <strong>AMZN</strong>, <strong>NVDA</strong>, <strong>META</strong>, <strong>TSLA</strong>, <strong>AVGO</strong>, <strong>COST</strong>, <strong>NFLX</strong>, and <strong>PEP</strong>.</li>
+<li>Expanded the dataset by scraping the 500 largest NASDAQ tickers by market cap.</li>
 <li>Supported configurable outputs via parameters.</li>
 </ul>
 </section>
@@ -226,9 +226,9 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="completed-phase-6-interactive-advanced-charting">[Completed] Phase 6: Interactive Advanced Charting</h3>
 <ul>
 <li>Developed <a href="file:///workspaces/stocks/code/create_chart.py">create_chart.py</a> using Plotly.</li>
-<li>Configured subplots syncing candlestick data (OHLC) and transaction volumes (color-coded by positive/negative days).</li>
-<li>Handled Nasdaq-inspired dark mode styling and range selections (1M, 3M, 6M, YTD, 1Y, 5Y, ALL).</li>
-<li>Generated the interactive HTML page at <a href="file:///workspaces/stocks/plots/AAPL_chart.html">AAPL_chart.html</a>.</li>
+<li>Configured subplots syncing candlestick data (OHLC) and transaction volumes.</li>
+<li>Generated interactive HTML charts for all 500 NASDAQ stocks inside <a href="file:///workspaces/stocks/plots/">plots/</a>.</li>
+<li>Re-designed the Quarto dashboard <a href="file:///workspaces/stocks/charts.qmd">charts.qmd</a> to include a dynamic HTML/JS dropdown selector for all 500 stocks.</li>
 </ul>
 
 
