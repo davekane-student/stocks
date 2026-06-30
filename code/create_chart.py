@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-AAPL Candlestick & Volume Advanced Chart Generator
+Stock Candlestick & Volume Advanced Chart Generator
 
-This script reads the downloaded historical stock data for AAPL
+This script reads historical stock data from a CSV file
 and generates an interactive advanced charting web page (HTML)
 using Plotly, styled to mimic modern financial charting platforms.
 """
@@ -14,12 +14,16 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def generate_chart(csv_path: str, output_path: str):
+def generate_chart(csv_path: str, output_path: str, ticker: str = None, company_name: str = None):
     if not os.path.exists(csv_path):
         print(f"Error: CSV file not found at '{csv_path}'. Run the scraper first.")
         sys.exit(1)
         
-    print(f"Loading stock data from {csv_path}...")
+    # Infer ticker if not provided
+    if not ticker:
+        ticker = os.path.basename(csv_path).split('_')[0].upper()
+        
+    print(f"Loading stock data from {csv_path} for {ticker}...")
     df = pd.read_csv(csv_path)
     df['Date'] = pd.to_datetime(df['Date'])
     
@@ -27,7 +31,7 @@ def generate_chart(csv_path: str, output_path: str):
     df['SMA20'] = df['Close'].rolling(window=20).mean()
     df['SMA50'] = df['Close'].rolling(window=50).mean()
     
-    print("Creating advanced interactive chart...")
+    print(f"Creating advanced interactive chart for {ticker}...")
     # Create subplots with shared x-axis
     # Row 1 (Price/Candlestick): 80% height, Row 2 (Volume): 20% height
     fig = make_subplots(
@@ -45,7 +49,7 @@ def generate_chart(csv_path: str, output_path: str):
             high=df['High'],
             low=df['Low'],
             close=df['Close'],
-            name='AAPL',
+            name=ticker,
             increasing_line_color='#089981',  # Bright TradingView green
             decreasing_line_color='#f23645',  # Bright TradingView red
             increasing_fillcolor='#089981',
@@ -53,12 +57,12 @@ def generate_chart(csv_path: str, output_path: str):
             hoverlabel=dict(bgcolor='#1e222d'),
             customdata=df['Volume'],
             hovertemplate=(
-                "<b>AAPL</b><br>"
-                "Date: %{x|%Y-%m-%d}<br>"
-                "Open: $%{open:.2f}<br>"
-                "High: $%{high:.2f}<br>"
-                "Low: $%{low:.2f}<br>"
-                "Close: $%{close:.2f}<br>"
+                f"<b>{ticker}</b><br>"
+                "Date: %{{x|%Y-%m-%d}}<br>"
+                "Open: $%{{open:.2f}}<br>"
+                "High: $%{{high:.2f}}<br>"
+                "Low: $%{{low:.2f}}<br>"
+                "Close: $%{{close:.2f}}<br>"
                 "<extra></extra>"
             )
         ),
@@ -109,10 +113,13 @@ def generate_chart(csv_path: str, output_path: str):
         row=2, col=1
     )
     
+    # Format Title Text
+    title_text = f"{company_name} ({ticker}) Historical Advanced Chart" if company_name else f"{ticker} Historical Advanced Chart"
+    
     # Advanced Layout Configuration (Nasdaq / TradingView dark theme styling)
     fig.update_layout(
         title={
-            'text': 'Apple Inc. (AAPL) Historical Advanced Chart',
+            'text': title_text,
             'y': 0.96,
             'x': 0.02,
             'xanchor': 'left',
@@ -199,8 +206,9 @@ def generate_chart(csv_path: str, output_path: str):
             bgcolor='#1e222d',
             activecolor='#2962ff',
             font=dict(color='#d1d4dc', size=11),
-            x=0.02,
-            y=1.04  # Positioned cleanly above the price plot
+            x=0.98,            # Position range selector on the far right
+            xanchor='right',   # Right-align the range selector buttons
+            y=1.04             # Placed at the same height above the price plot
         ),
         row=2, col=1
     )
@@ -235,6 +243,18 @@ if __name__ == '__main__':
         default='plots/AAPL_chart.html',
         help="Path to save the output HTML chart (default: plots/AAPL_chart.html)"
     )
+    parser.add_argument(
+        '-t', '--ticker',
+        type=str,
+        default=None,
+        help="Stock ticker symbol (default: inferred from filename)"
+    )
+    parser.add_argument(
+        '-n', '--company-name',
+        type=str,
+        default=None,
+        help="Company name (default: None)"
+    )
     
     args = parser.parse_args()
-    generate_chart(args.input_csv, args.output_html)
+    generate_chart(args.input_csv, args.output_html, args.ticker, args.company_name)

@@ -116,7 +116,7 @@ def process_single_ticker(ticker_info: dict, from_date: str, to_date: str) -> di
     charted = False
     if downloaded:
         try:
-            generate_chart(csv_path, chart_path)
+            generate_chart(csv_path, chart_path, symbol, name)
             charted = True
         except Exception as e:
             logger.error(f"Failed to generate chart for {symbol}: {e}")
