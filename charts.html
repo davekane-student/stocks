@@ -146,11 +146,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Interactive dark-mode candlestick chart for <strong>Apple Inc.&nbsp;(AAPL)</strong> with a coordinated volume pane and range selectors (<code>1W</code>, <code>1M</code>, <code>YTD</code>, <code>1Y</code>, <code>5Y</code>, <code>MAX</code>).</p>
+<p>Choose a stock from the dropdown menu below to load its interactive, dark-mode technical analysis chart. Each chart contains synchronized price (candlestick) and volume panels, moving averages (SMA 20/50), and dynamic range selectors.</p>
+<div style="margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+<p><label for="stock-select" style="font-weight: 600; color: #ffffff; font-size: 15px;">Select Ticker:</label> <select id="stock-select" onchange="changeStockChart(this.value)" style="background-color: #1e222d; color: #d1d4dc; border: 1px solid #2a2e39; border-radius: 6px; padding: 8px 16px; font-size: 14px; cursor: pointer; outline: none; transition: border-color 0.2s;"> <option value="plots/AAPL_chart.html">AAPL (Apple Inc.)</option> <option value="plots/MSFT_chart.html">MSFT (Microsoft Corp.)</option> <option value="plots/GOOGL_chart.html">GOOGL (Alphabet Inc.)</option> <option value="plots/AMZN_chart.html">AMZN (Amazon.com Inc.)</option> <option value="plots/NVDA_chart.html">NVDA (NVIDIA Corp.)</option> <option value="plots/META_chart.html">META (Meta Platforms Inc.)</option> <option value="plots/TSLA_chart.html">TSLA (Tesla Inc.)</option> <option value="plots/AVGO_chart.html">AVGO (Broadcom Inc.)</option> <option value="plots/COST_chart.html">COST (Costco Wholesale Corp.)</option> <option value="plots/NFLX_chart.html">NFLX (Netflix Inc.)</option> <option value="plots/PEP_chart.html">PEP (PepsiCo Inc.)</option> </select></p>
+</div>
 <div class="column-page">
-<iframe src="plots/AAPL_chart.html" width="100%" height="900px" style="border: none; background: #131722; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.35);">
+<iframe id="stock-chart-iframe" src="plots/AAPL_chart.html" width="100%" height="900px" style="border: none; background: #131722; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.35);">
 </iframe>
 </div>
+<script>
+function changeStockChart(chartPath) {
+  var iframe = document.getElementById('stock-chart-iframe');
+  if (iframe) {
+    iframe.src = chartPath;
+  }
+}
+</script>
 <section id="chart-interaction-guide" class="level3">
 <h3 class="anchored" data-anchor-id="chart-interaction-guide">Chart Interaction Guide</h3>
 <ol type="1">
@@ -238,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/davekane-student\.github\.io\/stocks\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
