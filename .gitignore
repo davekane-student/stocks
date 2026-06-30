@@ -1,6 +1,5 @@
-# Local stock data downloads and plots
+# Local stock data downloads
 downloads/
-plots/
 
 # Python cache files
 __pycache__/
@@ -10,3 +9,7 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+/.quarto/
+**/*.quarto_ipynb
+/_site/

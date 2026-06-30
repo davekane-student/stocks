@@ -1,0 +1,43 @@
+---
+title: "Interactive Stock Charts"
+---
+
+Choose a stock from the dropdown menu below to load its interactive, dark-mode technical analysis chart. Each chart contains synchronized price (candlestick) and volume panels, moving averages (SMA 20/50), and dynamic range selectors.
+
+<div style="margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+  <label for="stock-select" style="font-weight: 600; color: #ffffff; font-size: 15px;">Select Ticker:</label>
+  <select id="stock-select" onchange="changeStockChart(this.value)" style="background-color: #1e222d; color: #d1d4dc; border: 1px solid #2a2e39; border-radius: 6px; padding: 8px 16px; font-size: 14px; cursor: pointer; outline: none; transition: border-color 0.2s;">
+    <option value="plots/AAPL_chart.html">AAPL (Apple Inc.)</option>
+    <option value="plots/MSFT_chart.html">MSFT (Microsoft Corp.)</option>
+    <option value="plots/GOOGL_chart.html">GOOGL (Alphabet Inc.)</option>
+    <option value="plots/AMZN_chart.html">AMZN (Amazon.com Inc.)</option>
+    <option value="plots/NVDA_chart.html">NVDA (NVIDIA Corp.)</option>
+    <option value="plots/META_chart.html">META (Meta Platforms Inc.)</option>
+    <option value="plots/TSLA_chart.html">TSLA (Tesla Inc.)</option>
+    <option value="plots/AVGO_chart.html">AVGO (Broadcom Inc.)</option>
+    <option value="plots/COST_chart.html">COST (Costco Wholesale Corp.)</option>
+    <option value="plots/NFLX_chart.html">NFLX (Netflix Inc.)</option>
+    <option value="plots/PEP_chart.html">PEP (PepsiCo Inc.)</option>
+  </select>
+</div>
+
+::: {.column-page}
+<iframe id="stock-chart-iframe" src="plots/AAPL_chart.html" width="100%" height="900px" style="border: none; background: #131722; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.35);"></iframe>
+:::
+
+<script>
+function changeStockChart(chartPath) {
+  var iframe = document.getElementById('stock-chart-iframe');
+  if (iframe) {
+    iframe.src = chartPath;
+  }
+}
+</script>
+
+### Chart Interaction Guide
+
+1. **Date Range Buttons:** Click the buttons in the top-left corner of the chart (`1W`, `1M`, `YTD`, `1Y`, `5Y`, `MAX`) to quickly zoom into specific time horizons.
+2. **Interactive Zooming:** Use your mouse scroll-wheel (or pinch-to-zoom on trackpads) over any area of the chart to zoom in or out dynamically.
+3. **Panning:** Click and drag the price pane to slide the chart chronologically. The price and volume plots will remain perfectly synchronized.
+4. **Moving Average Toggles:** Click the **SMA 20** or **SMA 50** label in the legend to toggle the visibility of the corresponding Simple Moving Average lines.
+5. **Crosshair Spikes:** Hover your cursor over the chart to display crosshair gridlines that trace price values on the right-hand Y-axis.

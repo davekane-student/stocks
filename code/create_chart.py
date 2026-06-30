@@ -189,13 +189,12 @@ def generate_chart(csv_path: str, output_path: str):
         ),
         rangeselector=dict(
             buttons=list([
+                dict(count=7, label="1W", step="day", stepmode="backward"),
                 dict(count=1, label="1M", step="month", stepmode="backward"),
-                dict(count=3, label="3M", step="month", stepmode="backward"),
-                dict(count=6, label="6M", step="month", stepmode="backward"),
                 dict(count=1, label="YTD", step="year", stepmode="todate"),
                 dict(count=1, label="1Y", step="year", stepmode="backward"),
                 dict(count=5, label="5Y", step="year", stepmode="backward"),
-                dict(step="all", label="ALL")
+                dict(step="all", label="MAX")
             ]),
             bgcolor='#1e222d',
             activecolor='#2962ff',

@@ -1,0 +1,23 @@
+project:
+  type: website
+  resources:
+    - plots/
+
+website:
+  title: "Nasdaq Stocks Dashboard"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: charts.qmd
+        text: Interactive Charts
+      - href: about.qmd
+        text: About Project
+
+format:
+  html:
+    theme: Slate
+    css: styles.css
+    toc: true

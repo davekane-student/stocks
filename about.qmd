@@ -1,0 +1,31 @@
+---
+title: "About the Project"
+---
+
+This stock data platform is designed to scrape, clean, and visualize Nasdaq historical market activity data.
+
+## Scraping & Cleaning Pipeline
+
+*   **Public API Target:** Nasdaq's internal JSON endpoint `api.nasdaq.com` is targeted with browser-like headers to gather daily stock quotes.
+*   **Auto Weekend Correction:** Requests to the Nasdaq API fail if the start/end dates fall on weekends. The scraping engine automatically shifts weekend query parameters to the nearest trading days to prevent connection errors.
+*   **Data Standardizing:** A robust Pandas pipeline strips formatting symbols (`$`, commas), parses dates, and formats columns into standard, cleaned CSV rows.
+
+## Chart Generation
+
+*   **Plotly Visualizations:** The charts are generated using Python's `plotly.graph_objects` module.
+*   **Coordinated Layout:** Subplots link the primary price pane and the volume pane on a shared X-axis.
+*   **Professional Styling:** Features right-aligned Y-axes, custom dark templates, synchronized scrolling, cursor crosshair spikes, and technical indicator overlays.
+
+## Building & Publishing
+
+The website is powered by **Quarto**. To build and view the website locally, run:
+
+```bash
+quarto preview
+```
+
+To publish updates directly to GitHub Pages, run:
+
+```bash
+quarto publish gh-pages
+```

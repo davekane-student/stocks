@@ -1,0 +1,35 @@
+---
+title: "Nasdaq Stocks Historical Quotes Dashboard"
+---
+
+Welcome to the Nasdaq Stock Quotes Dashboard! This site hosts historical stock datasets and interactive charts for prominent Nasdaq stocks.
+
+Our datasets are fetched directly from Nasdaq's public endpoints and cleaned using Python and Pandas.
+
+## Key Project Deliverables
+
+*   [Interactive Charts](charts.qmd): Access high-fidelity interactive stock charting (candlestick & volume subplots) with dynamic time range selectors.
+*   **Historical Datasets:** Pre-downloaded, cleaned historical CSV datasets (dating back 10 years) for top companies are located in the project workspace under the `downloads/` directory.
+
+## Directory Structure
+
+*   [code/](file:///workspaces/stocks/code/) — Python scraper and chart builder scripts.
+*   `downloads/` — Cleaned stock price history CSVs (ignored by Git).
+*   `plots/` — Rendered interactive Plotly stock charts (ignored by Git).
+*   `plan.md` — Project milestone tracking and completed steps.
+
+## Available Stock Datasets
+
+We have pre-downloaded 10-year daily historical records for:
+
+*   **AAPL** (Apple Inc.)
+*   **MSFT** (Microsoft Corp.)
+*   **GOOGL** (Alphabet Inc.)
+*   **AMZN** (Amazon.com Inc.)
+*   **NVDA** (NVIDIA Corp.)
+*   **META** (Meta Platforms Inc.)
+*   **TSLA** (Tesla Inc.)
+*   **AVGO** (Broadcom Inc.)
+*   **COST** (Costco Wholesale Corp.)
+*   **NFLX** (Netflix Inc.)
+*   **PEP** (PepsiCo Inc.)
