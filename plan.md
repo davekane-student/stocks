@@ -45,7 +45,7 @@ Created [nasdaq_scraper.py](file:///workspaces/stocks/code/nasdaq_scraper.py):
 
 ### [Completed] Phase 4: Data Storage & CLI
 * Created [downloads/AAPL_historical.csv](file:///workspaces/stocks/downloads/AAPL_historical.csv) containing 2510 rows (10 years) of clean trading records.
-* Expanded the dataset by scraping 10 additional prominent NASDAQ tickers: **MSFT**, **GOOGL**, **AMZN**, **NVDA**, **META**, **TSLA**, **AVGO**, **COST**, **NFLX**, and **PEP**.
+* Expanded the dataset by scraping the 500 largest NASDAQ tickers by market cap.
 * Supported configurable outputs via parameters.
 
 ### [Completed] Phase 5: Documentation & Verification
@@ -53,6 +53,6 @@ Created [nasdaq_scraper.py](file:///workspaces/stocks/code/nasdaq_scraper.py):
 
 ### [Completed] Phase 6: Interactive Advanced Charting
 * Developed [create_chart.py](file:///workspaces/stocks/code/create_chart.py) using Plotly.
-* Configured subplots syncing candlestick data (OHLC) and transaction volumes (color-coded by positive/negative days).
-* Handled Nasdaq-inspired dark mode styling and range selections (1M, 3M, 6M, YTD, 1Y, 5Y, ALL).
-* Generated the interactive HTML page at [AAPL_chart.html](file:///workspaces/stocks/plots/AAPL_chart.html).
+* Configured subplots syncing candlestick data (OHLC) and transaction volumes.
+* Generated interactive HTML charts for all 500 NASDAQ stocks inside [plots/](file:///workspaces/stocks/plots/).
+* Re-designed the Quarto dashboard [charts.qmd](file:///workspaces/stocks/charts.qmd) to include a dynamic HTML/JS dropdown selector for all 500 stocks.
