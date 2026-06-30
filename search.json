@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "charts.html",
+    "href": "charts.html",
+    "title": "Interactive Stock Charts",
+    "section": "",
+    "text": "Interactive dark-mode candlestick chart for Apple Inc. (AAPL) with a coordinated volume pane and range selectors (1W, 1M, YTD, 1Y, 5Y, MAX).\n\n\n\n\n\nChart Interaction Guide\n\nDate Range Buttons: Click the buttons in the top-left corner of the chart (1W, 1M, YTD, 1Y, 5Y, MAX) to quickly zoom into specific time horizons.\nInteractive Zooming: Use your mouse scroll-wheel (or pinch-to-zoom on trackpads) over any area of the chart to zoom in or out dynamically.\nPanning: Click and drag the price pane to slide the chart chronologically. The price and volume plots will remain perfectly synchronized.\nMoving Average Toggles: Click the SMA 20 or SMA 50 label in the legend to toggle the visibility of the corresponding Simple Moving Average lines.\nCrosshair Spikes: Hover your cursor over the chart to display crosshair gridlines that trace price values on the right-hand Y-axis."
+  },
+  {
+    "objectID": "plan.html",
+    "href": "plan.html",
+    "title": "Plan of Action: Nasdaq Stock Historical Price Data Scraper",
+    "section": "",
+    "text": "This plan outlines the design and implementation steps for building a robust Python-based dataset collector that gathers historical stock price data from the Nasdaq Historical Quotes page.\n\n\n\n\n\nThe Nasdaq website dynamically retrieves stock data using JavaScript from an internal JSON API. Programmatic requests directly to the web pages are slow and heavily filtered, but targeting the internal API endpoint is faster and cleaner: * Endpoint URL: https://api.nasdaq.com/api/quote/{symbol}/historical * Query Parameters: * assetclass: Set to stocks (or etf, etc.) * fromdate: Start date (e.g., YYYY-MM-DD, such as 2025-06-30) * todate: End date (e.g., YYYY-MM-DD, such as 2026-06-30) * limit: The maximum number of records to retrieve. Setting this to a high value (like 9999) allows fetching the full requested range in a single request.\n\n\n\nNasdaq uses security layers (like Akamai) that block requests lacking appropriate browser headers. To bypass basic filters, we must supply realistic headers: * User-Agent: A modern browser user agent (e.g., Chrome/Firefox) * Accept: application/json, text/plain, */* * Accept-Language: en-US,en;q=0.9 * Origin: https://www.nasdaq.com * Referer: https://www.nasdaq.com/\n\n\n\n\n\n\n\n\nCreated and ran verification scripts (verify_nasdaq.py and test_nasdaq_depth.py) under scratch.\nDetermined that requesting weekend dates directly triggers Nasdaq API Error 1000 (“Something went wrong”). Added weekday adjustments to circumvent this limit.\n\n\n\n\nImplemented formatting conversions for: * Date: MM/DD/YYYY \\(\\rightarrow\\) YYYY-MM-DD * Close/Last, Open, High, Low: Strings like $182.50 \\(\\rightarrow\\) Floats like 182.50 * Volume: Strings like 52,345,123 \\(\\rightarrow\\) Integers like 52345123\n\n\n\nCreated nasdaq_scraper.py: * Handled weekday date-shifting for weekend safety. * Added standard connection error handling and timeouts. * Formatted logs via python logging.\n\n\n\n\nCreated downloads/AAPL_historical.csv containing 2510 rows (10 years) of clean trading records.\nExpanded the dataset by scraping 10 additional prominent NASDAQ tickers: MSFT, GOOGL, AMZN, NVDA, META, TSLA, AVGO, COST, NFLX, and PEP.\nSupported configurable outputs via parameters.\n\n\n\n\n\nCreated README.md file detailing how to install requirements and execute the scraper for other symbols.\n\n\n\n\n\nDeveloped create_chart.py using Plotly.\nConfigured subplots syncing candlestick data (OHLC) and transaction volumes (color-coded by positive/negative days).\nHandled Nasdaq-inspired dark mode styling and range selections (1M, 3M, 6M, YTD, 1Y, 5Y, ALL).\nGenerated the interactive HTML page at AAPL_chart.html."
+  },
+  {
+    "objectID": "plan.html#technical-analysis",
+    "href": "plan.html#technical-analysis",
+    "title": "Plan of Action: Nasdaq Stock Historical Price Data Scraper",
+    "section": "",
+    "text": "The Nasdaq website dynamically retrieves stock data using JavaScript from an internal JSON API. Programmatic requests directly to the web pages are slow and heavily filtered, but targeting the internal API endpoint is faster and cleaner: * Endpoint URL: https://api.nasdaq.com/api/quote/{symbol}/historical * Query Parameters: * assetclass: Set to stocks (or etf, etc.) * fromdate: Start date (e.g., YYYY-MM-DD, such as 2025-06-30) * todate: End date (e.g., YYYY-MM-DD, such as 2026-06-30) * limit: The maximum number of records to retrieve. Setting this to a high value (like 9999) allows fetching the full requested range in a single request.\n\n\n\nNasdaq uses security layers (like Akamai) that block requests lacking appropriate browser headers. To bypass basic filters, we must supply realistic headers: * User-Agent: A modern browser user agent (e.g., Chrome/Firefox) * Accept: application/json, text/plain, */* * Accept-Language: en-US,en;q=0.9 * Origin: https://www.nasdaq.com * Referer: https://www.nasdaq.com/"
+  },
+  {
+    "objectID": "plan.html#implementation-status",
+    "href": "plan.html#implementation-status",
+    "title": "Plan of Action: Nasdaq Stock Historical Price Data Scraper",
+    "section": "",
+    "text": "Created and ran verification scripts (verify_nasdaq.py and test_nasdaq_depth.py) under scratch.\nDetermined that requesting weekend dates directly triggers Nasdaq API Error 1000 (“Something went wrong”). Added weekday adjustments to circumvent this limit.\n\n\n\n\nImplemented formatting conversions for: * Date: MM/DD/YYYY \\(\\rightarrow\\) YYYY-MM-DD * Close/Last, Open, High, Low: Strings like $182.50 \\(\\rightarrow\\) Floats like 182.50 * Volume: Strings like 52,345,123 \\(\\rightarrow\\) Integers like 52345123\n\n\n\nCreated nasdaq_scraper.py: * Handled weekday date-shifting for weekend safety. * Added standard connection error handling and timeouts. * Formatted logs via python logging.\n\n\n\n\nCreated downloads/AAPL_historical.csv containing 2510 rows (10 years) of clean trading records.\nExpanded the dataset by scraping 10 additional prominent NASDAQ tickers: MSFT, GOOGL, AMZN, NVDA, META, TSLA, AVGO, COST, NFLX, and PEP.\nSupported configurable outputs via parameters.\n\n\n\n\n\nCreated README.md file detailing how to install requirements and execute the scraper for other symbols.\n\n\n\n\n\nDeveloped create_chart.py using Plotly.\nConfigured subplots syncing candlestick data (OHLC) and transaction volumes (color-coded by positive/negative days).\nHandled Nasdaq-inspired dark mode styling and range selections (1M, 3M, 6M, YTD, 1Y, 5Y, ALL).\nGenerated the interactive HTML page at AAPL_chart.html."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About the Project",
+    "section": "",
+    "text": "This stock data platform is designed to scrape, clean, and visualize Nasdaq historical market activity data."
+  },
+  {
+    "objectID": "about.html#scraping-cleaning-pipeline",
+    "href": "about.html#scraping-cleaning-pipeline",
+    "title": "About the Project",
+    "section": "Scraping & Cleaning Pipeline",
+    "text": "Scraping & Cleaning Pipeline\n\nPublic API Target: Nasdaq’s internal JSON endpoint api.nasdaq.com is targeted with browser-like headers to gather daily stock quotes.\nAuto Weekend Correction: Requests to the Nasdaq API fail if the start/end dates fall on weekends. The scraping engine automatically shifts weekend query parameters to the nearest trading days to prevent connection errors.\nData Standardizing: A robust Pandas pipeline strips formatting symbols ($, commas), parses dates, and formats columns into standard, cleaned CSV rows."
+  },
+  {
+    "objectID": "about.html#chart-generation",
+    "href": "about.html#chart-generation",
+    "title": "About the Project",
+    "section": "Chart Generation",
+    "text": "Chart Generation\n\nPlotly Visualizations: The charts are generated using Python’s plotly.graph_objects module.\nCoordinated Layout: Subplots link the primary price pane and the volume pane on a shared X-axis.\nProfessional Styling: Features right-aligned Y-axes, custom dark templates, synchronized scrolling, cursor crosshair spikes, and technical indicator overlays."
+  },
+  {
+    "objectID": "about.html#building-publishing",
+    "href": "about.html#building-publishing",
+    "title": "About the Project",
+    "section": "Building & Publishing",
+    "text": "Building & Publishing\nThe website is powered by Quarto. To build and view the website locally, run:\nquarto preview\nTo publish updates directly to GitHub Pages, run:\nquarto publish gh-pages"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Nasdaq Stocks Historical Quotes Dashboard",
+    "section": "",
+    "text": "Welcome to the Nasdaq Stock Quotes Dashboard! This site hosts historical stock datasets and interactive charts for prominent Nasdaq stocks.\nOur datasets are fetched directly from Nasdaq’s public endpoints and cleaned using Python and Pandas."
+  },
+  {
+    "objectID": "index.html#key-project-deliverables",
+    "href": "index.html#key-project-deliverables",
+    "title": "Nasdaq Stocks Historical Quotes Dashboard",
+    "section": "Key Project Deliverables",
+    "text": "Key Project Deliverables\n\nInteractive Charts: Access high-fidelity interactive stock charting (candlestick & volume subplots) with dynamic time range selectors.\nHistorical Datasets: Pre-downloaded, cleaned historical CSV datasets (dating back 10 years) for top companies are located in the project workspace under the downloads/ directory."
+  },
+  {
+    "objectID": "index.html#directory-structure",
+    "href": "index.html#directory-structure",
+    "title": "Nasdaq Stocks Historical Quotes Dashboard",
+    "section": "Directory Structure",
+    "text": "Directory Structure\n\ncode/ — Python scraper and chart builder scripts.\ndownloads/ — Cleaned stock price history CSVs (ignored by Git).\nplots/ — Rendered interactive Plotly stock charts (ignored by Git).\nplan.md — Project milestone tracking and completed steps."
+  },
+  {
+    "objectID": "index.html#available-stock-datasets",
+    "href": "index.html#available-stock-datasets",
+    "title": "Nasdaq Stocks Historical Quotes Dashboard",
+    "section": "Available Stock Datasets",
+    "text": "Available Stock Datasets\nWe have pre-downloaded 10-year daily historical records for:\n\nAAPL (Apple Inc.)\nMSFT (Microsoft Corp.)\nGOOGL (Alphabet Inc.)\nAMZN (Amazon.com Inc.)\nNVDA (NVIDIA Corp.)\nMETA (Meta Platforms Inc.)\nTSLA (Tesla Inc.)\nAVGO (Broadcom Inc.)\nCOST (Costco Wholesale Corp.)\nNFLX (Netflix Inc.)\nPEP (PepsiCo Inc.)"
+  }
+]
